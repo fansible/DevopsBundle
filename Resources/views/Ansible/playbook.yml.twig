@@ -1,0 +1,25 @@
+---
+
+- name: Provision {{ project_name }}
+  hosts: {{ hosts }}
+  sudo: {{ sudo }}
+  vars_files:
+    - vars/ansible-generator.yml
+{% for package in ['common'] | merge(packages) %}
+    - vars/ansible-generator/{{ package }}.yml
+{% endfor %}
+{% if vars_files is defined %}
+{% for vars_file in vars_files %}
+    - vars/{{ vars_file }}.yml
+{% endfor %}
+{% endif %}
+roles:
+{% for package in packages %}
+  - { role: {{ roles[package].name }}, tags: {{ package }} }
+{% endfor %}
+{% if includes is defined %}
+
+{% for include in includes %}
+  - include : {{ include.include }}.yml
+{% endfor %}
+{% endif %}

@@ -1,0 +1,16 @@
+{
+    "name": "fansible/devops-bundle",
+    "license": "MIT",
+    "type": "Devops",
+    "description": "This will help you to generate a provisioning to run your Symfony apps",
+    "keywords": ["Generate Provisioning Server Ansible Security"],
+    "authors": [
+        {
+            "name": "Simon Constans",
+            "email": "simonc@linux.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": ">=2.3.1"
+    }
+}
