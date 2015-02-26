@@ -27,12 +27,10 @@ class ProvisioningGeneratorCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $services = $this->getContainer()->get('fansible_devops.container.finder')->getServices();
-
         $output->writeln('Generate playbook');
-        $this->getContainer()->get('fansible_devops.generate.ansible')->generate($services);
+        $this->getContainer()->get('fansible_devops.generator.ansible')->generate();
 
         $output->writeln('Generate Vagranfile');
-        $this->getContainer()->get('fansible_devops.generate.vagrantfile')->generate($services);
+        $this->getContainer()->get('fansible_devops.generator.vagrantfile')->generate();
     }
 }

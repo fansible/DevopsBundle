@@ -1,6 +1,6 @@
 <?php
 
-namespace Fansible\DevopsBundle\Finder;
+namespace Fansible\DevopsBundle\Finder\Helper;
 
 interface FinderInterface
 {

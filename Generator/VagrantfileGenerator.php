@@ -2,13 +2,35 @@
 
 namespace Fansible\DevopsBundle\Generator;
 
-class VagrantfileGenerator extends TwigHelper
+use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
+
+class VagrantfileGenerator implements GeneratorInterface
 {
+    /**
+     * @var \Fansible\DevopsBundle\Finder\Helper\FinderContainer
+     */
+    private $finderContainer;
+
+    /**
+     * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
+     */
+    private $twigHelper;
+
+    /**
+     * @param \Fansible\DevopsBundle\Finder\Helper\FinderContainer $finderContainer
+     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper   $twigHelper
+     */
+    public function __construct($finderContainer, $twigHelper)
+    {
+        $this->finderContainer = $finderContainer;
+        $this->twigHelper = $twigHelper;
+    }
+
     public function generate()
     {
-        $this->render(
+        $this->twigHelper->render(
             'Vagrantfile',
-            $this->getTwigPath('Vagrant/Vagrantfile.twig'),
+            'Vagrant/Vagrantfile.twig',
             [
                 'project_name' => 'sharepear',
                 'vagrant_box' => 'ubuntu/trusty64',

@@ -6,16 +6,28 @@
 
     <services>
 
-        <service id="fansible_devops.generator.twig_helper" class="Fansible\DevopsBundle\Generator\TwigHelper">
+        <!-- container -->
+
+
+
+        <!-- herlper -->
+
+        <service id="fansible_devops.generator.helper.twig" class="Fansible\DevopsBundle\Generator\Helper\TwigHelper">
             <argument type="service" id="twig" />
             <argument>%kernel.root_dir%</argument>
         </service>
 
-        <service id="fansible_devops.generate.ansible" class="Fansible\DevopsBundle\Generator\AnsibleGenerator"
-                 parent="fansible_devops.generator.twig_helper" />
+        <!-- generator -->
 
-        <service id="fansible_devops.generate.vagrantfile" class="Fansible\DevopsBundle\Generator\VagrantfileGenerator"
-                 parent="fansible_devops.generator.twig_helper" />
+        <service id="fansible_devops.generator.ansible" class="Fansible\DevopsBundle\Generator\AnsibleGenerator">
+            <argument type="service" id="fansible_devops.finder.container" />
+            <argument type="service" id="fansible_devops.generator.helper.twig" />
+        </service>
+
+        <service id="fansible_devops.generator.vagrantfile" class="Fansible\DevopsBundle\Generator\VagrantfileGenerator">
+            <argument type="service" id="fansible_devops.finder.container" />
+            <argument type="service" id="fansible_devops.generator.helper.twig" />
+        </service>
 
     </services>
 

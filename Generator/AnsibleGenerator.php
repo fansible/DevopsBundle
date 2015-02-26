@@ -3,73 +3,99 @@
 namespace Fansible\DevopsBundle\Generator;
 
 use Fansible\DevopsBundle\Finder\MysqlFinder;
+use Fansible\DevopsBundle\Finder\PostgresqlFinder;
+use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 
-class AnsibleGenerator extends TwigHelper
+class AnsibleGenerator implements GeneratorInterface
 {
-    /** @var string */
+    /**
+     * @var \Fansible\DevopsBundle\Finder\Helper\FinderContainer
+     */
+    private $finderContainer;
+
+    /**
+     * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
+     */
+    private $twigHelper;
+
+    /**
+     * @param \Fansible\DevopsBundle\Finder\Helper\FinderContainer $finderContainer
+     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper   $twigHelper
+     */
+    public function __construct($finderContainer, $twigHelper)
+    {
+        $this->finderContainer = $finderContainer;
+        $this->twigHelper = $twigHelper;
+    }
+
+    /**
+     * @var string
+     */
     private $provisioningPath = 'devops/provisioning/';
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $roles = [
         MysqlFinder::NAME => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
+        PostgresqlFinder::NAME => ['name' => 'ANXS.postgresql', 'version' => 'v1.0.4'],
     ];
 
     /**
-     * @param array $services
+     * @inheritdoc
      */
-    public function generate(array $services = [])
+    public function generate()
     {
-        $this->generatePlaybook($services);
-        $this->generateRequirements($services);
-        $this->generateConfig();
+        $this->generatePlaybook();
+        $this->generateRequirements();
+        $this->generateAnsibleConfig();
+        $this->generateRolesConfig();
         $this->generateHosts();
     }
 
-    public function generateConfig()
+    public function generateRolesConfig()
     {
-        $this->render(
+    }
+
+    public function generateAnsibleConfig()
+    {
+        $this->twigHelper->render(
             $this->provisioningPath . 'ansible.cfg',
-            $this->getTwigPath('Ansible/ansible.cfg.twig')
+            'Ansible/ansible.cfg.twig'
         );
     }
 
     public function generateHosts()
     {
-        $this->render(
+        $this->twigHelper->render(
             $this->provisioningPath . '/inventory/vagrant',
-            $this->getTwigPath('Ansible/hosts.twig')
+            'Ansible/hosts.twig'
         );
     }
 
-    /**
-     * @param array $services
-     */
-    public function generatePlaybook(array $services = [])
+    public function generatePlaybook()
     {
-        $this->render(
+        $this->twigHelper->render(
             $this->provisioningPath . 'playbook.yml',
-            $this->getTwigPath('Ansible/playbook.yml.twig'),
+            'Ansible/playbook.yml.twig',
             [
                 'project_name' => 'devops',
                 'hosts' => 'all',
                 'sudo' => 'yes',
                 'roles' => $this->roles,
-                'packages' => $services,
+                'packages' => $this->finderContainer->getServices(),
             ]
         );
     }
 
-    /**
-     * @param array $services
-     */
-    public function generateRequirements(array $services = [])
+    public function generateRequirements()
     {
-        $this->render(
+        $this->twigHelper->render(
             $this->provisioningPath . 'requirements.txt',
-            $this->getTwigPath('Ansible/requirements.txt.twig'),
+            'Ansible/requirements.txt.twig',
             [
                 'roles' => $this->roles,
-                'services' => $services,
+                'services' => $this->finderContainer->getServices(),
             ]
         );
     }

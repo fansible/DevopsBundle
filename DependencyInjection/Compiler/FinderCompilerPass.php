@@ -16,11 +16,11 @@ class FinderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('fansible_devops.container.finder')) {
+        if (!$container->hasDefinition('fansible_devops.finder.container')) {
             return;
         }
 
-        $definition = $container->getDefinition('fansible_devops.container.finder');
+        $definition = $container->getDefinition('fansible_devops.finder.container');
         $taggedServices = $container->findTaggedServiceIds('fansible_devops.finder');
 
         foreach ($taggedServices as $id => $tagAttributes) {

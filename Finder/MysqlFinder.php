@@ -2,19 +2,23 @@
 
 namespace Fansible\DevopsBundle\Finder;
 
+use Fansible\DevopsBundle\Finder\Helper\FinderInterface;
+
 class MysqlFinder implements FinderInterface
 {
     const NAME = 'mysql';
 
-    /** @var \Doctrine\DBAL\Driver\Connection $connection */
-    private $dbal;
+    /**
+     * @var \Fansible\DevopsBundle\Finder\Helper\DoctrineHelper
+     */
+    private $doctrineHelper;
 
     /**
-     * @param \Doctrine\DBAL\Driver\Connection $dbal
+     * @param \Fansible\DevopsBundle\Finder\Helper\DoctrineHelper $doctrineHelper
      */
-    public function __construct($dbal = null)
+    public function __construct($doctrineHelper)
     {
-        $this->dbal = $dbal;
+        $this->doctrineHelper = $doctrineHelper;
     }
 
     /**
@@ -30,10 +34,6 @@ class MysqlFinder implements FinderInterface
      */
     public function isPresent()
     {
-        if (null !== $this->dbal && $this->dbal->getDriver()->getName() == 'pdo_mysql') {
-            return true;
-        }
-
-        return false;
+        return $this->doctrineHelper->isPresent('pdo_mysql');
     }
 }

@@ -5,10 +5,29 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fansible_devops.finder.mysql" class="Fansible\DevopsBundle\Finder\MysqlFinder">
+
+        <!-- container -->
+
+        <service id="fansible_devops.finder.container" class="Fansible\DevopsBundle\Finder\Helper\FinderContainer" />
+
+        <!-- helper -->
+
+        <service id="fansible_devops.finder.helper.doctrine" class="Fansible\DevopsBundle\Finder\Helper\DoctrineHelper">
             <argument type="service" id="doctrine.dbal.default_connection" on-invalid="ignore" />
+        </service>
+
+        <!-- finder -->
+
+        <service id="fansible_devops.finder.mysql" class="Fansible\DevopsBundle\Finder\MysqlFinder">
+            <argument type="service" id="fansible_devops.finder.helper.doctrine" />
             <tag name="fansible_devops.finder" />
         </service>
+
+        <service id="fansible_devops.finder.postgresql" class="Fansible\DevopsBundle\Finder\PostgresqlFinder">
+            <argument type="service" id="fansible_devops.finder.helper.doctrine" />
+            <tag name="fansible_devops.finder" />
+        </service>
+
     </services>
 
 </container>

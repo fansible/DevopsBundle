@@ -1,6 +1,6 @@
 <?php
 
-namespace Fansible\DevopsBundle\Generator;
+namespace Fansible\DevopsBundle\Generator\Helper;
 
 class TwigHelper
 {
@@ -25,9 +25,9 @@ class TwigHelper
      *
      * @return string
      */
-    public function getTwigPath($path)
+    private function getTwigPath($path)
     {
-        return dirname(__DIR__) . '/Resources/views/' . $path;
+        return dirname(dirname(__DIR__)) . '/Resources/views/' . $path;
     }
 
     /**
@@ -41,6 +41,6 @@ class TwigHelper
             mkdir(dirname($fileName), 0777, true);
         }
 
-        file_put_contents($fileName ,$this->twig->render($twigFile, $parameters));
+        file_put_contents($fileName ,$this->twig->render($this->getTwigPath($twigFile), $parameters));
     }
 }
