@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="fansible_devops.config.database" class="Fansible\DevopsBundle\Config\DatabaseConfig">
+            <argument>%fansible_devops.data.database.driver%</argument>
+            <argument>%fansible_devops.data.database.name%</argument>
+            <argument>%fansible_devops.data.database.user%</argument>
+            <argument>%fansible_devops.data.database.password%</argument>
+        </service>
+
+        <service id="fansible_devops.config.ansible" class="Fansible\DevopsBundle\Config\AnsibleConfig">
+            <argument type="service" id="fansible_devops.finder.container" />
+            <argument type="service" id="fansible_devops.config.database" />
+        </service>
+
+    </services>
+
+</container>

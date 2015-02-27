@@ -27,10 +27,8 @@ class ProvisioningGeneratorCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Generate playbook');
-        $this->getContainer()->get('fansible_devops.generator.ansible')->generate();
-
-        $output->writeln('Generate Vagranfile');
-        $this->getContainer()->get('fansible_devops.generator.vagrantfile')->generate();
+        $output->writeln('Generate start');
+        $this->getContainer()->get('fansible_devops.generator.container')->generate();
+        $output->writeln('Generate end');
     }
 }

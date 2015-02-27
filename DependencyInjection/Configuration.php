@@ -18,7 +18,19 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('fansible_devops');
+        $rootNode = $treeBuilder->root('fansible_devops');
+
+        $rootNode
+            ->children()
+                ->arrayNode('database')
+                ->children()
+                    ->scalarNode('driver')->defaultNull()->end()
+                    ->scalarNode('name')->defaultNull()->end()
+                    ->scalarNode('user')->defaultNull()->end()
+                    ->scalarNode('password')->defaultNull()->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

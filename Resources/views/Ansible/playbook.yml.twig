@@ -4,9 +4,8 @@
   hosts: {{ hosts }}
   sudo: {{ sudo }}
   vars_files:
-    - vars/ansible-generator.yml
 {% for package in ['common'] | merge(packages) %}
-    - vars/ansible-generator/{{ package }}.yml
+    - vars/{{ package }}.yml
 {% endfor %}
 {% if vars_files is defined %}
 {% for vars_file in vars_files %}
