@@ -2,8 +2,7 @@
 
 namespace Fansible\DevopsBundle\Config;
 
-use Fansible\DevopsBundle\Finder\MysqlFinder;
-use Fansible\DevopsBundle\Finder\PostgresqlFinder;
+use Fansible\DevopsBundle\Services;
 
 class AnsibleConfig
 {
@@ -26,8 +25,9 @@ class AnsibleConfig
      * @var array
      */
     private $roles = [
-        MysqlFinder::NAME => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
-        PostgresqlFinder::NAME => ['name' => 'ANXS.postgresql', 'version' => 'v1.0.4'],
+        Services::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
+        Services::POSTGRESQL => ['name' => 'FAKE.node', 'version' => 'v42'],
+        Services::NODE => ['name' => 'FAKE.node', 'version' => 'v42'],
     ];
 
     /**
