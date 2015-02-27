@@ -2,20 +2,19 @@
 
 namespace Fansible\DevopsBundle\Config;
 
+use Fansible\DevopsBundle\Helper\ServiceHelper;
+
 class DatabaseConfig
 {
-    const POSTGRESQL = 'postgresql';
-    const MYSQL      = 'mysql';
-
-    private $types = array(
-        'pdo_pgsql' => DatabaseConfig::POSTGRESQL,
-        'pdo_mysql' => DatabaseConfig::MYSQL,
+    private $driverToService = array(
+        'pdo_pgsql' => ServiceHelper::POSTGRESQL,
+        'pdo_mysql' => ServiceHelper::MYSQL,
     );
 
     /**
      * @var string
      */
-    private $type;
+    private $service;
 
     /**
      * @var string
@@ -40,7 +39,9 @@ class DatabaseConfig
      */
     public function __construct($driver = '', $name = '', $user = '', $password = '')
     {
-        $this->setType($driver);
+        if (isset($this->driverToService[$driver])) {
+            $this->service = $this->driverToService[$driver];
+        }
         $this->name     = $name;
         $this->user     = $user;
         $this->password = $password;
@@ -73,16 +74,8 @@ class DatabaseConfig
     /**
      * @return string
      */
-    public function getType()
+    public function getService()
     {
-        return $this->type;
-    }
-
-    /**
-     * @param string $driver
-     */
-    public function setType($driver)
-    {
-        $this->type = $this->types[$driver];
+        return $this->service;
     }
 }

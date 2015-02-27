@@ -4,9 +4,9 @@
   hosts: {{ hosts }}
   sudo: {{ sudo }}
   vars_files:
-{% for package in ['common'] | merge(packages) %}
+{% if packages is not empty %}{% for package in ['common'] | merge(packages) %}
     - vars/{{ package }}.yml
-{% endfor %}
+{% endfor %}{% endif %}
 {% if vars_files is defined %}
 {% for vars_file in vars_files %}
     - vars/{{ vars_file }}.yml

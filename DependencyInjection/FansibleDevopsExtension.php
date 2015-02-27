@@ -29,6 +29,7 @@ class FansibleDevopsExtension extends Extension implements PrependExtensionInter
         $loader->load('config.xml');
         $loader->load('finder.xml');
         $loader->load('generator.xml');
+        $loader->load('helper.xml');
     }
 
     public function prepend(ContainerBuilder $container)

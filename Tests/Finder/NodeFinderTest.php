@@ -1,6 +1,6 @@
 <?php
 
-namespace kosssi\MyAlbumsBundle\Tests\EventListener;
+namespace Fansible\DevopsBundle\Tests\Finder;
 
 use Fansible\DevopsBundle\Finder\NodeFinder;
 

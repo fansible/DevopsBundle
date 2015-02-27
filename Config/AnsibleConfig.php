@@ -2,14 +2,14 @@
 
 namespace Fansible\DevopsBundle\Config;
 
-use Fansible\DevopsBundle\Services;
+use Fansible\DevopsBundle\Helper\ServiceHelper;
 
 class AnsibleConfig
 {
     /**
-     * @var \Fansible\DevopsBundle\Finder\Helper\FinderContainer
+     * @var ServiceHelper
      */
-    private $finderContainer;
+    private $serviceHelper;
 
     /**
      * @var DatabaseConfig
@@ -25,19 +25,19 @@ class AnsibleConfig
      * @var array
      */
     private $roles = [
-        Services::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
-        Services::POSTGRESQL => ['name' => 'FAKE.node', 'version' => 'v42'],
-        Services::NODE => ['name' => 'FAKE.node', 'version' => 'v42'],
+        ServiceHelper::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
+        ServiceHelper::POSTGRESQL => ['name' => 'FAKE.node', 'version' => 'v42'],
+        ServiceHelper::NODE => ['name' => 'FAKE.node', 'version' => 'v42'],
     ];
 
     /**
-     * @param \Fansible\DevopsBundle\Finder\Helper\FinderContainer $finderContainer
+     * @param ServiceHelper  $serviceHelper
      * @param DatabaseConfig $databaseConfig
      * @param string         $provisioningPath
      */
-    public function __construct($finderContainer, $databaseConfig, $provisioningPath = 'devops/provisioning')
+    public function __construct($serviceHelper, $databaseConfig, $provisioningPath = 'devops/provisioning')
     {
-        $this->finderContainer = $finderContainer;
+        $this->serviceHelper = $serviceHelper;
         $this->databaseConfig = $databaseConfig;
         $this->provisioningPath = $provisioningPath;
     }
@@ -71,6 +71,6 @@ class AnsibleConfig
      */
     public function getServices()
     {
-        return $this->finderContainer->getServices();
+        return $this->serviceHelper->getServices();
     }
 }
