@@ -6,9 +6,7 @@
 
     <services>
 
-        <service id="fansible_devops.helper.service" class="Fansible\DevopsBundle\Helper\ServiceHelper">
-            <argument type="service" id="fansible_devops.config.database" />
-        </service>
+        <service id="fansible_devops.helper.service" class="Fansible\DevopsBundle\Helper\ServiceHelper" />
 
     </services>
 

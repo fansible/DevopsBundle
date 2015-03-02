@@ -2,8 +2,6 @@
 
 namespace Fansible\DevopsBundle\Helper;
 
-use Fansible\DevopsBundle\Config\DatabaseConfig;
-
 class ServiceHelper
 {
     // database
@@ -33,10 +31,9 @@ class ServiceHelper
      */
     private $services;
 
-    public function __construct(DatabaseConfig $databaseConfig)
+    public function __construct()
     {
         $this->services = [];
-        $this->addService($databaseConfig->getService());
     }
 
     /**

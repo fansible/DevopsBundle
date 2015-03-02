@@ -26,7 +26,7 @@ class AnsibleConfig
      */
     private $roles = [
         ServiceHelper::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
-        ServiceHelper::POSTGRESQL => ['name' => 'FAKE.node', 'version' => 'v42'],
+        ServiceHelper::POSTGRESQL => ['name' => 'FAKE.postgresql', 'version' => 'v42'],
         ServiceHelper::NODE => ['name' => 'FAKE.node', 'version' => 'v42'],
     ];
 

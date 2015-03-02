@@ -20,7 +20,7 @@
         <!-- generator -->
 
         <service id="fansible_devops.generator.vagrantfile" class="Fansible\DevopsBundle\Generator\VagrantfileGenerator">
-            <argument type="service" id="fansible_devops.finder.container" />
+            <argument type="service" id="fansible_devops.config.vagrant" />
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <tag name="fansible_devops.generator" />
         </service>

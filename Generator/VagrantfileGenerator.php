@@ -7,9 +7,9 @@ use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 class VagrantfileGenerator implements GeneratorInterface
 {
     /**
-     * @var \Fansible\DevopsBundle\Finder\Helper\FinderContainer
+     * @var \Fansible\DevopsBundle\Config\VagrantConfig
      */
-    private $finderContainer;
+    private $vagrantConfig;
 
     /**
      * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
@@ -17,12 +17,12 @@ class VagrantfileGenerator implements GeneratorInterface
     private $twigHelper;
 
     /**
-     * @param \Fansible\DevopsBundle\Finder\Helper\FinderContainer $finderContainer
-     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper   $twigHelper
+     * @param \Fansible\DevopsBundle\Config\VagrantConfig        $vagrantConfig
+     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
      */
-    public function __construct($finderContainer, $twigHelper)
+    public function __construct($vagrantConfig, $twigHelper)
     {
-        $this->finderContainer = $finderContainer;
+        $this->vagrantConfig = $vagrantConfig;
         $this->twigHelper = $twigHelper;
     }
 
@@ -32,15 +32,7 @@ class VagrantfileGenerator implements GeneratorInterface
             'Vagrantfile',
             'Vagrant/Vagrantfile.twig',
             [
-                'project_name' => 'sharepear',
-                'vagrant_box' => 'ubuntu/trusty64',
-                'vagrant_ip' => '199.199.199.199',
-                'vagrant_memory' => '2048',
-                'vagrant_cpus' => '2',
-                'vagrant_exec' => '100',
-                'vagrant_src' => '.',
-                'vagrant_dest' => '/var/www/sharepear/current',
-                'hostfile' => 'devops/privisioning/inventory/vagrant',
+                'config' => $this->vagrantConfig,
             ]
         );
     }

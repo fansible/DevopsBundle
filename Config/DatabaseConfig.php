@@ -32,15 +32,17 @@ class DatabaseConfig
     private $password;
 
     /**
-     * @param string $driver
-     * @param string $name
-     * @param string $user
-     * @param string $password
+     * @param ServiceHelper $serviceHelper
+     * @param string        $driver
+     * @param string        $name
+     * @param string        $user
+     * @param string        $password
      */
-    public function __construct($driver = '', $name = '', $user = '', $password = '')
+    public function __construct($serviceHelper, $driver = '', $name = '', $user = '', $password = '')
     {
         if (isset($this->driverToService[$driver])) {
             $this->service = $this->driverToService[$driver];
+            $serviceHelper->addService($this->service);
         }
         $this->name     = $name;
         $this->user     = $user;

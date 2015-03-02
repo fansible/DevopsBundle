@@ -25,6 +25,20 @@ class FansibleDevopsExtension extends Extension implements PrependExtensionInter
 
         $this->databaseConfig($config['database'], $container);
 
+        // vagrant
+        $container->setParameter('fansible_devops.data.vagrant.project_name', $config['name']);
+        $container->setParameter('fansible_devops.data.vagrant.box', $config['vagrant']['box']);
+        $container->setParameter('fansible_devops.data.vagrant.ip', $config['vagrant']['ip']);
+        $container->setParameter('fansible_devops.data.vagrant.memory', $config['vagrant']['memory']);
+        $container->setParameter('fansible_devops.data.vagrant.cpus', $config['vagrant']['cpus']);
+        $container->setParameter('fansible_devops.data.vagrant.exec', $config['vagrant']['exec']);
+        $container->setParameter('fansible_devops.data.vagrant.src', $config['vagrant']['src']);
+        $container->setParameter('fansible_devops.data.vagrant.dest', $config['vagrant']['dest'] ? $config['vagrant']['dest'] : '/var/www/' . $config['name'] . '/current');
+        $container->setParameter('fansible_devops.data.vagrant.hostfile', $config['vagrant']['hostfile']);
+
+        $container->setParameter('fansible_devops.data.webserver.type', $config['webserver']['type']);
+        $container->setParameter('fansible_devops.data.webserver.hostname', $config['webserver']['hostname']);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('config.xml');
         $loader->load('finder.xml');

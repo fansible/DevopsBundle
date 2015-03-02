@@ -1,9 +1,9 @@
-$HOSTNAME = "{{ project_name }}.dev"
-$BOX = "{{ vagrant_box }}"
-$IP = "{{ vagrant_ip }}"
-$MEMORY = ENV.has_key?('VM_MEMORY') ? ENV['VM_MEMORY'] : "{{ vagrant_memory }}"
-$CPUS = ENV.has_key?('VM_CPUS') ? ENV['VM_CPUS'] : "{{ vagrant_cpus }}"
-$EXEC_CAP = ENV.has_key?('VM_EXEC_CAP') ? ENV['VM_EXEC_CAP'] : "{{ vagrant_exec }}"
+$HOSTNAME = "{{ config.projectName }}.dev"
+$BOX = "{{ config.box }}"
+$IP = "{{ config.ip }}"
+$MEMORY = ENV.has_key?('VM_MEMORY') ? ENV['VM_MEMORY'] : "{{ config.memory }}"
+$CPUS = ENV.has_key?('VM_CPUS') ? ENV['VM_CPUS'] : "{{ config.cpus }}"
+$EXEC_CAP = ENV.has_key?('VM_EXEC_CAP') ? ENV['VM_EXEC_CAP'] : "{{ config.exec }}"
 
 Vagrant.configure("2") do |config|
   config.vm.hostname = $HOSTNAME
@@ -11,10 +11,10 @@ Vagrant.configure("2") do |config|
   config.vm.network :private_network, ip: $IP
   config.ssh.forward_agent = true
 
-  config.vm.synced_folder "{{ vagrant_src }}", "{{ vagrant_dest }}", type: "nfs"
+  config.vm.synced_folder "{{ config.src }}", "{{ config.dest }}", type: "nfs"
 
   config.vm.provider "virtualbox" do |v|
-    v.name = "{{ project_name }}"
+    v.name = "{{ config.projectName }}"
     v.customize ["modifyvm", :id, "--cpuexecutioncap", $EXEC_CAP]
     v.customize ["modifyvm", :id, "--memory", $MEMORY]
     v.customize ["modifyvm", :id, "--cpus", $CPUS]
@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
     ansible.sudo = true
     ansible.playbook = "playbook.yml"
     ansible.limit = "vagrant"
-    ansible.inventory_path = "{{ hostfile }}/vagrant"
+    ansible.inventory_path = "{{ config.hostfile }}/vagrant"
     ansible.verbose = "vvvv"
     #ansible.tags = "config"
     #ansible.raw_arguments  = "--vault-password-file=password.txt"
