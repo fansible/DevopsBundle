@@ -3,7 +3,7 @@
 namespace Fansible\DevopsBundle\Finder;
 
 use Fansible\DevopsBundle\Finder\Helper\FinderInterface;
-use Fansible\DevopsBundle\Helper\ServiceHelper;
+use Fansible\DevopsBundle\Config\ServicesConfig;
 
 class NodeFinder implements FinderInterface
 {
@@ -25,7 +25,7 @@ class NodeFinder implements FinderInterface
      */
     public function getServiceName()
     {
-        return ServiceHelper::NODE;
+        return ServicesConfig::NODE;
     }
 
     /**

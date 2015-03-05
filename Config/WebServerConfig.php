@@ -2,52 +2,50 @@
 
 namespace Fansible\DevopsBundle\Config;
 
-use Fansible\DevopsBundle\Helper\ServiceHelper;
-
 class WebServerConfig
 {
-    private $types = array(
-        ServiceHelper::APACHE,
-        ServiceHelper::NGINX,
+    private $services = array(
+        ServicesConfig::APACHE,
+        ServicesConfig::NGINX,
     );
 
     /**
      * @var string
      */
-    private $type;
+    private $service;
 
     /**
      * @var string
-     **/
-    private $hostname;
+     */
+    private $port;
 
     /**
-     * @param ServiceHelper $serviceHelper
-     * @param string        $type
-     * @param string        $hostname
+     * @param ServicesConfig $servicesConfig
+     * @param array         $config
      */
-    public function __construct($serviceHelper, $type = '', $hostname = '')
+    public function __construct($servicesConfig, array $config)
     {
-        if (in_array($type, $this->types)) {
-            $serviceHelper->addService($type);
-            $this->type = $type;
+        $service = $config['service'];
+        if (in_array($service, $this->services)) {
+            $servicesConfig->addService($service);
+            $this->service = $service;
         }
-        $this->hostname = $hostname;
+        $this->port = $config['port'];
     }
 
     /**
      * @return string
      */
-    public function getHostname()
+    public function getPort()
     {
-        return $this->hostname;
+        return $this->port;
     }
 
     /**
      * @return string
      */
-    public function getType()
+    public function getService()
     {
-        return $this->type;
+        return $this->service;
     }
 }

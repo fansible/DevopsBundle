@@ -2,13 +2,13 @@
 
 namespace Fansible\DevopsBundle\Config;
 
-use Fansible\DevopsBundle\Helper\ServiceHelper;
+use Fansible\DevopsBundle\Config\ServicesConfig;
 
 class DatabaseConfig
 {
     private $driverToService = array(
-        'pdo_pgsql' => ServiceHelper::POSTGRESQL,
-        'pdo_mysql' => ServiceHelper::MYSQL,
+        'pdo_pgsql' => ServicesConfig::POSTGRESQL,
+        'pdo_mysql' => ServicesConfig::MYSQL,
     );
 
     /**
@@ -32,21 +32,19 @@ class DatabaseConfig
     private $password;
 
     /**
-     * @param ServiceHelper $serviceHelper
-     * @param string        $driver
-     * @param string        $name
-     * @param string        $user
-     * @param string        $password
+     * @param ServicesConfig $servicesConfig
+     * @param array         $config
      */
-    public function __construct($serviceHelper, $driver = '', $name = '', $user = '', $password = '')
+    public function __construct($servicesConfig, array $config)
     {
+        $driver = $config['driver'];
         if (isset($this->driverToService[$driver])) {
             $this->service = $this->driverToService[$driver];
-            $serviceHelper->addService($this->service);
+            $servicesConfig->addService($this->service);
         }
-        $this->name     = $name;
-        $this->user     = $user;
-        $this->password = $password;
+        $this->name     = $config['name'];
+        $this->user     = $config['user'];
+        $this->password = $config['password'];
     }
 
     /**

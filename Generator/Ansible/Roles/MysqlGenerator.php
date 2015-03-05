@@ -2,28 +2,36 @@
 
 namespace Fansible\DevopsBundle\Generator\Ansible\Roles;
 
+use Fansible\DevopsBundle\Config\ServicesConfig;
 use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 
 class MysqlGenerator implements GeneratorInterface
 {
-    /**
-     * @var \Fansible\DevopsBundle\Config\AnsibleConfig
-     */
-    private $config;
-
     /**
      * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
      */
     private $twigHelper;
 
     /**
-     * @param \Fansible\DevopsBundle\Config\AnsibleConfig        $config
-     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
+     * @var ServicesConfig
      */
-    public function __construct($config, $twigHelper)
+    private $servicesConfig;
+
+    /**
+     * @var \Fansible\DevopsBundle\Config\DatabaseConfig
+     */
+    private $databaseConfig;
+
+    /**
+     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
+     * @param ServicesConfig                                     $servicesConfig
+     * @param \Fansible\DevopsBundle\Config\DatabaseConfig       $databaseConfig
+     */
+    public function __construct($twigHelper, $servicesConfig, $databaseConfig)
     {
-        $this->config = $config;
         $this->twigHelper = $twigHelper;
+        $this->servicesConfig = $servicesConfig;
+        $this->databaseConfig = $databaseConfig;
     }
 
     /**
@@ -31,12 +39,16 @@ class MysqlGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $this->twigHelper->render(
-            $this->config->getProvisioningPath() . '/vars/mysql.yml',
-            'Ansible/Roles/mysql.yml.twig',
-            [
-                'database' => $this->config->getDatabaseConfig(),
-            ]
-        );
+        if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)
+            && $this->servicesConfig->isPresent(ServicesConfig::MYSQL)
+        ) {
+            $this->twigHelper->renderProvisioningFile(
+                'vars/mysql.yml',
+                'Ansible/Roles/mysql.yml.twig',
+                [
+                    'database' => $this->databaseConfig,
+                ]
+            );
+        }
     }
 }

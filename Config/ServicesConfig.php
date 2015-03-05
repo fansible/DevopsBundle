@@ -1,9 +1,13 @@
 <?php
 
-namespace Fansible\DevopsBundle\Helper;
+namespace Fansible\DevopsBundle\Config;
 
-class ServiceHelper
+class ServicesConfig
 {
+    // provisioning
+    const ANSIBLE = 'ansible';
+    const DOCKER = 'docker';
+
     // database
     const MYSQL = 'mysql';
     const POSTGRESQL = 'postgresql';
@@ -21,6 +25,7 @@ class ServiceHelper
      * @var array
      */
     private $allServices = [
+        self::ANSIBLE, self::DOCKER,
         self::MYSQL, self::POSTGRESQL,
         self::APACHE, self::NGINX,
         self::NODE, self::REDIS, self::RABBITMQ,
@@ -31,9 +36,19 @@ class ServiceHelper
      */
     private $services;
 
-    public function __construct()
+    /**
+     * @param string                                               $provisioning
+     * @param \Fansible\DevopsBundle\Finder\Helper\FinderContainer $finderContainer
+     */
+    public function __construct($provisioning, $finderContainer)
     {
         $this->services = [];
+        $this->addService($provisioning);
+        if (null !== $services = $finderContainer->getServices()) {
+            foreach ($services as $service) {
+                $this->addService($service);
+            }
+        }
     }
 
     /**
@@ -56,5 +71,15 @@ class ServiceHelper
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $service
+     *
+     * @return bool
+     */
+    public function isPresent($service)
+    {
+        return in_array($service, $this->services);
     }
 }

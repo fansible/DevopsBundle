@@ -25,26 +25,19 @@ class VagrantConfig
 
     /**
      * @param string $projectName
-     * @param string $box
-     * @param string $ip
-     * @param string $memory
-     * @param string $cpus
-     * @param string $exec
-     * @param string $src
-     * @param string $dest
-     * @param string $hostfile
+     * @param array  $config
      */
-    public function __construct($projectName, $box, $ip, $memory, $cpus, $exec, $src, $dest, $hostfile)
+    public function __construct($projectName, array $config)
     {
         $this->projectName = $projectName;
-        $this->box = $box;
-        $this->ip = $ip;
-        $this->memory = $memory;
-        $this->cpus = $cpus;
-        $this->exec = $exec;
-        $this->src = $src;
-        $this->dest = $dest;
-        $this->hostfile = $hostfile;
+        $this->box = $config['box'];
+        $this->ip = $config['ip'];
+        $this->memory = $config['memory'];
+        $this->cpus = $config['cpus'];
+        $this->exec = $config['exec'];
+        $this->src = $config['src'];
+        $this->dest = $config['dest'] ? $config['dest'] : '/var/www/' . $projectName . '/current';
+        $this->hostfile = $config['hostfile'];
     }
 
     /**

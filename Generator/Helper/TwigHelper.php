@@ -4,20 +4,31 @@ namespace Fansible\DevopsBundle\Generator\Helper;
 
 class TwigHelper
 {
-    /** @var \Twig_Environment */
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $rootDir;
+
+    /**
+     * @var string
+     */
+    protected $provisioningPath;
 
     /**
      * @param \Twig_Environment $twig
      * @param string            $rootDir
+     * @param string            $provisioningPath
      */
-    public function __construct($twig, $rootDir)
+    public function __construct($twig, $rootDir, $provisioningPath)
     {
         $this->twig = $twig;
         $this->rootDir = $rootDir;
+        $this->provisioningPath = $provisioningPath;
     }
 
     /**
@@ -42,5 +53,15 @@ class TwigHelper
         }
 
         file_put_contents($fileName ,$this->twig->render($this->getTwigPath($twigFile), $parameters));
+    }
+
+    /**
+     * @param string $fileName
+     * @param string $twigFile
+     * @param array  $parameters
+     */
+    public function renderProvisioningFile($fileName, $twigFile, $parameters = [])
+    {
+        $this->render($this->provisioningPath . $fileName, $twigFile, $parameters);
     }
 }

@@ -23,27 +23,19 @@ class FansibleDevopsExtension extends Extension implements PrependExtensionInter
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->databaseConfig($config['database'], $container);
-
-        // vagrant
-        $container->setParameter('fansible_devops.data.vagrant.project_name', $config['name']);
-        $container->setParameter('fansible_devops.data.vagrant.box', $config['vagrant']['box']);
-        $container->setParameter('fansible_devops.data.vagrant.ip', $config['vagrant']['ip']);
-        $container->setParameter('fansible_devops.data.vagrant.memory', $config['vagrant']['memory']);
-        $container->setParameter('fansible_devops.data.vagrant.cpus', $config['vagrant']['cpus']);
-        $container->setParameter('fansible_devops.data.vagrant.exec', $config['vagrant']['exec']);
-        $container->setParameter('fansible_devops.data.vagrant.src', $config['vagrant']['src']);
-        $container->setParameter('fansible_devops.data.vagrant.dest', $config['vagrant']['dest'] ? $config['vagrant']['dest'] : '/var/www/' . $config['name'] . '/current');
-        $container->setParameter('fansible_devops.data.vagrant.hostfile', $config['vagrant']['hostfile']);
-
-        $container->setParameter('fansible_devops.data.webserver.type', $config['webserver']['type']);
-        $container->setParameter('fansible_devops.data.webserver.hostname', $config['webserver']['hostname']);
+        $container->setParameter('fansible_devops.data.name', $config['name']);
+        $container->setParameter('fansible_devops.data.provisioning', $config['provisioning']);
+        $container->setParameter('fansible_devops.data.provisioning_path', $config['provisioning_path']);
+        $container->setParameter('fansible_devops.data.database', $config['database']);
+        $container->setParameter('fansible_devops.data.webserver', $config['webserver']);
+        $container->setParameter('fansible_devops.data.vagrant', $config['vagrant']);
+        $container->setParameter('fansible_devops.data.environments', $config['environments']);
+        $container->setParameter('fansible_devops.data.ansible_roles', $config['ansible_roles']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('config.xml');
         $loader->load('finder.xml');
         $loader->load('generator.xml');
-        $loader->load('helper.xml');
     }
 
     public function prepend(ContainerBuilder $container)
@@ -75,17 +67,5 @@ class FansibleDevopsExtension extends Extension implements PrependExtensionInter
             'user'     => isset($config['user'])     ? $config['user']     : '',
             'password' => isset($config['password']) ? $config['password'] : '',
         ];
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     */
-    private function databaseConfig(array $config, ContainerBuilder $container)
-    {
-        $container->setParameter('fansible_devops.data.database.driver',   $config['driver']);
-        $container->setParameter('fansible_devops.data.database.name',     $config['name']);
-        $container->setParameter('fansible_devops.data.database.user',     $config['user']);
-        $container->setParameter('fansible_devops.data.database.password', $config['password']);
     }
 }

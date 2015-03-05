@@ -6,35 +6,32 @@
 
     <services>
 
-        <service id="fansible_devops.config.database" class="Fansible\DevopsBundle\Config\DatabaseConfig">
-            <argument type="service" id="fansible_devops.helper.service" />
-            <argument>%fansible_devops.data.database.driver%</argument>
-            <argument>%fansible_devops.data.database.name%</argument>
-            <argument>%fansible_devops.data.database.user%</argument>
-            <argument>%fansible_devops.data.database.password%</argument>
+        <service id="fansible_devops.config.services" class="Fansible\DevopsBundle\Config\ServicesConfig">
+            <argument>%fansible_devops.data.provisioning%</argument>
+            <argument type="service" id="fansible_devops.finder.container" />
         </service>
 
         <service id="fansible_devops.config.webserver" class="Fansible\DevopsBundle\Config\WebServerConfig">
-            <argument type="service" id="fansible_devops.helper.service" />
-            <argument>%fansible_devops.data.webserver.type%</argument>
-            <argument>%fansible_devops.data.webserver.hostname%</argument>
+            <argument type="service" id="fansible_devops.config.services" />
+            <argument>%fansible_devops.data.webserver%</argument>
         </service>
 
-        <service id="fansible_devops.config.ansible" class="Fansible\DevopsBundle\Config\AnsibleConfig">
-            <argument type="service" id="fansible_devops.helper.service" />
-            <argument type="service" id="fansible_devops.config.database" />
+        <service id="fansible_devops.config.database" class="Fansible\DevopsBundle\Config\DatabaseConfig">
+            <argument type="service" id="fansible_devops.config.services" />
+            <argument>%fansible_devops.data.database%</argument>
+        </service>
+
+        <service id="fansible_devops.config.environments" class="Fansible\DevopsBundle\Config\EnvironmentsConfig">
+            <argument>%fansible_devops.data.environments%</argument>
+        </service>
+
+        <service id="fansible_devops.config.ansible_roles" class="Fansible\DevopsBundle\Config\AnsibleRolesConfig">
+            <argument>%fansible_devops.data.ansible_roles%</argument>
         </service>
 
         <service id="fansible_devops.config.vagrant" class="Fansible\DevopsBundle\Config\VagrantConfig">
-            <argument>%fansible_devops.data.vagrant.project_name%</argument>
-            <argument>%fansible_devops.data.vagrant.box%</argument>
-            <argument>%fansible_devops.data.vagrant.ip%</argument>
-            <argument>%fansible_devops.data.vagrant.memory%</argument>
-            <argument>%fansible_devops.data.vagrant.cpus%</argument>
-            <argument>%fansible_devops.data.vagrant.exec%</argument>
-            <argument>%fansible_devops.data.vagrant.src%</argument>
-            <argument>%fansible_devops.data.vagrant.dest%</argument>
-            <argument>%fansible_devops.data.vagrant.hostfile%</argument>
+            <argument>%fansible_devops.data.name%</argument>
+            <argument>%fansible_devops.data.vagrant%</argument>
         </service>
 
     </services>

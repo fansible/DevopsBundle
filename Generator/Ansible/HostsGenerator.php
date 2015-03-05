@@ -2,28 +2,36 @@
 
 namespace Fansible\DevopsBundle\Generator\Ansible;
 
+use Fansible\DevopsBundle\Config\ServicesConfig;
 use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 
 class HostsGenerator implements GeneratorInterface
 {
-    /**
-     * @var \Fansible\DevopsBundle\Config\AnsibleConfig
-     */
-    private $config;
-
     /**
      * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
      */
     private $twigHelper;
 
     /**
-     * @param \Fansible\DevopsBundle\Config\AnsibleConfig          $config
-     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper   $twigHelper
+     * @var ServicesConfig
      */
-    public function __construct($config, $twigHelper)
+    private $servicesConfig;
+
+    /**
+     * @var \Fansible\DevopsBundle\Config\EnvironmentsConfig
+     */
+    private $environmentsConfig;
+
+    /**
+     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
+     * @param ServicesConfig                                     $servicesConfig
+     * @param \Fansible\DevopsBundle\Config\EnvironmentsConfig   $environmentsConfig
+     */
+    public function __construct($twigHelper, $servicesConfig, $environmentsConfig)
     {
-        $this->config = $config;
         $this->twigHelper = $twigHelper;
+        $this->servicesConfig = $servicesConfig;
+        $this->environmentsConfig = $environmentsConfig;
     }
 
     /**
@@ -31,9 +39,17 @@ class HostsGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $this->twigHelper->render(
-            $this->config->getProvisioningPath() . '/inventory/vagrant',
-            'Ansible/hosts.twig'
-        );
+        if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)) {
+            /** @var \Fansible\DevopsBundle\Config\EnvironmentConfig $environment */
+            foreach ($this->environmentsConfig->getEnvironments() as $environment) {
+                $this->twigHelper->renderProvisioningFile(
+                    'inventory/' . $environment->getName(),
+                    'Ansible/hosts.twig',
+                    [
+                        'environment' => $environment,
+                    ]
+                );
+            }
+        }
     }
 }

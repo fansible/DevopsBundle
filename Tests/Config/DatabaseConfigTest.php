@@ -3,7 +3,7 @@
 namespace Fansible\DevopsBundle\Tests\Config;
 
 use Fansible\DevopsBundle\Config\DatabaseConfig;
-use Fansible\DevopsBundle\Helper\ServiceHelper;
+use Fansible\DevopsBundle\Config\ServicesConfig;
 
 class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,13 +27,13 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
     {
         $databaseConfig = new DatabaseConfig('pdo_mysql');
 
-        $this->assertEquals(ServiceHelper::MYSQL, $databaseConfig->getService());
+        $this->assertEquals(ServicesConfig::MYSQL, $databaseConfig->getService());
     }
 
     public function testPostgresqlDriver()
     {
         $databaseConfig = new DatabaseConfig('pdo_pgsql');
 
-        $this->assertEquals(ServiceHelper::POSTGRESQL, $databaseConfig->getService());
+        $this->assertEquals(ServicesConfig::POSTGRESQL, $databaseConfig->getService());
     }
 }

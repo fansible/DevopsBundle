@@ -1,0 +1,60 @@
+<?php
+
+namespace Fansible\DevopsBundle\Config;
+
+class AnsibleRolesConfig
+{
+    private $rolesSupported = [
+        ServicesConfig::MYSQL,
+        ServicesConfig::POSTGRESQL,
+        ServicesConfig::APACHE,
+        ServicesConfig::NGINX,
+        ServicesConfig::NODE,
+    ];
+
+    /**
+     * @var array
+     */
+    private $roles = [
+        // database
+        ServicesConfig::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
+        ServicesConfig::POSTGRESQL => ['name' => 'FAKE.postgresql', 'version' => 'v42'],
+        // webserver
+        ServicesConfig::APACHE => ['name' => 'kosssi.apache', 'version' => 'v1.0.3'],
+        ServicesConfig::NGINX => ['name' => 'FAKE.nginx', 'version' => 'v42'],
+
+        ServicesConfig::NODE => ['name' => 'FAKE.node', 'version' => 'v42'],
+    ];
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config)
+    {
+        foreach ($config as $service => $role) {
+            if (in_array($service, $this->rolesSupported)) {
+                foreach ($role as $key => $value) {
+                    $this->roles[$service][$key] = $value;
+                }
+            }
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param string $service
+     *
+     * @return array
+     */
+    public function getRole($service)
+    {
+        return $this->roles[$service];
+    }
+}

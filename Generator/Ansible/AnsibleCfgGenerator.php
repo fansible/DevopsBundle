@@ -2,28 +2,29 @@
 
 namespace Fansible\DevopsBundle\Generator\Ansible;
 
+use Fansible\DevopsBundle\Config\ServicesConfig;
 use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 
 class AnsibleCfgGenerator implements GeneratorInterface
 {
-    /**
-     * @var \Fansible\DevopsBundle\Config\AnsibleConfig
-     */
-    private $config;
-
     /**
      * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
      */
     private $twigHelper;
 
     /**
-     * @param \Fansible\DevopsBundle\Config\AnsibleConfig        $config
-     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
+     * @var ServicesConfig
      */
-    public function __construct($config, $twigHelper)
+    private $servicesConfig;
+
+    /**
+     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
+     * @param ServicesConfig                                     $servicesConfig
+     */
+    public function __construct($twigHelper, $servicesConfig)
     {
-        $this->config = $config;
         $this->twigHelper = $twigHelper;
+        $this->servicesConfig = $servicesConfig;
     }
 
     /**
@@ -31,9 +32,11 @@ class AnsibleCfgGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $this->twigHelper->render(
-            $this->config->getProvisioningPath() . '/ansible.cfg',
-            'Ansible/ansible.cfg.twig'
-        );
+        if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)) {
+            $this->twigHelper->renderProvisioningFile(
+                'ansible.cfg',
+                'Ansible/ansible.cfg.twig'
+            );
+        }
     }
 }

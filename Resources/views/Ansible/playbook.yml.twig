@@ -4,18 +4,18 @@
   hosts: {{ hosts }}
   sudo: {{ sudo }}
   vars_files:
-{% if packages is not empty %}{% for package in ['common'] | merge(packages) %}
-    - vars/{{ package }}.yml
-{% endfor %}{% endif %}
+{% if services is not empty %}{% for service in services %}{% if roles[service] is defined %}
+    - vars/{{ service }}.yml
+{% endif %}{% endfor %}{% endif %}
 {% if vars_files is defined %}
 {% for vars_file in vars_files %}
     - vars/{{ vars_file }}.yml
 {% endfor %}
 {% endif %}
 roles:
-{% for package in packages %}
-  - { role: {{ roles[package].name }}, tags: {{ package }} }
-{% endfor %}
+{% for service in services %}{% if roles[service] is defined %}
+  - { role: {{ roles[service].name }}, tags: {{ service }} }
+{% endif %}{% endfor %}
 {% if includes is defined %}
 
 {% for include in includes %}

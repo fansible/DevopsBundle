@@ -2,28 +2,36 @@
 
 namespace Fansible\DevopsBundle\Generator\Ansible;
 
+use Fansible\DevopsBundle\Config\ServicesConfig;
 use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 
 class PlaybookGenerator implements GeneratorInterface
 {
-    /**
-     * @var \Fansible\DevopsBundle\Config\AnsibleConfig
-     */
-    private $config;
-
     /**
      * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
      */
     private $twigHelper;
 
     /**
-     * @param \Fansible\DevopsBundle\Config\AnsibleConfig          $config
-     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper   $twigHelper
+     * @var ServicesConfig
      */
-    public function __construct($config, $twigHelper)
+    private $servicesConfig;
+
+    /**
+     * @var \Fansible\DevopsBundle\Config\AnsibleRolesConfig
+     */
+    private $ansibleRolesConfig;
+
+    /**
+     * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
+     * @param ServicesConfig                                     $servicesConfig
+     * @param \Fansible\DevopsBundle\Config\AnsibleRolesConfig   $ansibleRolesConfig
+     */
+    public function __construct($twigHelper, $servicesConfig, $ansibleRolesConfig)
     {
-        $this->config = $config;
         $this->twigHelper = $twigHelper;
+        $this->servicesConfig = $servicesConfig;
+        $this->ansibleRolesConfig = $ansibleRolesConfig;
     }
 
     /**
@@ -31,16 +39,18 @@ class PlaybookGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $this->twigHelper->render(
-            $this->config->getProvisioningPath() . '/playbook.yml',
-            'Ansible/playbook.yml.twig',
-            [
-                'project_name' => 'devops',
-                'hosts' => 'all',
-                'sudo' => 'yes',
-                'roles' => $this->config->getRoles(),
-                'packages' => $this->config->getServices(),
-            ]
-        );
+        if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)) {
+            $this->twigHelper->renderProvisioningFile(
+                'playbook.yml',
+                'Ansible/playbook.yml.twig',
+                [
+                    'project_name' => 'devops',
+                    'hosts' => 'all',
+                    'sudo' => 'yes',
+                    'roles' => $this->ansibleRolesConfig->getRoles(),
+                    'services' => $this->servicesConfig->getServices(),
+                ]
+            );
+        }
     }
 }

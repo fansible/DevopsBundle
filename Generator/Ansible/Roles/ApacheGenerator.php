@@ -1,11 +1,11 @@
 <?php
 
-namespace Fansible\DevopsBundle\Generator\Ansible;
+namespace Fansible\DevopsBundle\Generator\Ansible\Roles;
 
 use Fansible\DevopsBundle\Config\ServicesConfig;
 use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 
-class RequirementsGenerator implements GeneratorInterface
+class ApacheGenerator implements GeneratorInterface
 {
     /**
      * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
@@ -18,20 +18,20 @@ class RequirementsGenerator implements GeneratorInterface
     private $servicesConfig;
 
     /**
-     * @var \Fansible\DevopsBundle\Config\AnsibleRolesConfig
+     * @var \Fansible\DevopsBundle\Config\WebServerConfig
      */
-    private $ansibleRolesConfig;
+    private $webServerConfig;
 
     /**
      * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
      * @param ServicesConfig                                     $servicesConfig
-     * @param \Fansible\DevopsBundle\Config\AnsibleRolesConfig   $ansibleRolesConfig
+     * @param \Fansible\DevopsBundle\Config\WebServerConfig      $webServerConfig
      */
-    public function __construct($twigHelper, $servicesConfig, $ansibleRolesConfig)
+    public function __construct($twigHelper, $servicesConfig, $webServerConfig)
     {
         $this->twigHelper = $twigHelper;
         $this->servicesConfig = $servicesConfig;
-        $this->ansibleRolesConfig = $ansibleRolesConfig;
+        $this->webServerConfig = $webServerConfig;
     }
 
     /**
@@ -39,13 +39,14 @@ class RequirementsGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)) {
+        if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)
+            && $this->servicesConfig->isPresent(ServicesConfig::APACHE)
+        ) {
             $this->twigHelper->renderProvisioningFile(
-                'requirements.txt',
-                'Ansible/requirements.txt.twig',
+                'vars/apache.yml',
+                'Ansible/Roles/apache.yml.twig',
                 [
-                    'roles' => $this->ansibleRolesConfig->getRoles(),
-                    'services' => $this->servicesConfig->getServices(),
+                    'port' => $this->webServerConfig->getPort(),
                 ]
             );
         }

@@ -38,14 +38,4 @@ class FinderContainer
 
         return $this->services;
     }
-
-    /**
-     * @param string $service
-     *
-     * @return bool
-     */
-    public function isPresent($service)
-    {
-        return in_array($service, $this->services);
-    }
 }
