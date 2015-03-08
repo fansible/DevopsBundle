@@ -4,15 +4,27 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="fansible_devops.generator.container.class">Fansible\DevopsBundle\Generator\Helper\GeneratorContainer</parameter>
+        <parameter key="fansible_devops.generator.helper.twig.class">Fansible\DevopsBundle\Generator\Helper\TwigHelper</parameter>
+        <parameter key="fansible_devops.generator.vagrantfile.class">Fansible\DevopsBundle\Generator\VagrantfileGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.ansible_cfg.class">Fansible\DevopsBundle\Generator\Ansible\AnsibleCfgGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.hosts.class">Fansible\DevopsBundle\Generator\Ansible\HostsGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.playbook.class">Fansible\DevopsBundle\Generator\Ansible\PlaybookGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.requirements.class">Fansible\DevopsBundle\Generator\Ansible\RequirementsGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.role.mysql.class">Fansible\DevopsBundle\Generator\Ansible\Roles\MysqlGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.role.apache.class">Fansible\DevopsBundle\Generator\Ansible\Roles\ApacheGenerator</parameter>
+    </parameters>
+
     <services>
 
         <!-- container -->
 
-        <service id="fansible_devops.generator.container" class="Fansible\DevopsBundle\Generator\Helper\GeneratorContainer" />
+        <service id="fansible_devops.generator.container" class="%fansible_devops.generator.container.class%" />
 
         <!-- helper -->
 
-        <service id="fansible_devops.generator.helper.twig" class="Fansible\DevopsBundle\Generator\Helper\TwigHelper">
+        <service id="fansible_devops.generator.helper.twig" class="%fansible_devops.generator.helper.twig.class%">
             <argument type="service" id="twig" />
             <argument>%kernel.root_dir%</argument>
             <argument>%fansible_devops.data.provisioning_path%</argument>
@@ -20,7 +32,7 @@
 
         <!-- generator -->
 
-        <service id="fansible_devops.generator.vagrantfile" class="Fansible\DevopsBundle\Generator\VagrantfileGenerator">
+        <service id="fansible_devops.generator.vagrantfile" class="%fansible_devops.generator.vagrantfile.class%">
             <argument type="service" id="fansible_devops.config.vagrant" />
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <tag name="fansible_devops.generator" />
@@ -28,24 +40,24 @@
 
         <!-- ansible -->
 
-        <service id="fansible_devops.generator.ansible.ansible_cfg" class="Fansible\DevopsBundle\Generator\Ansible\AnsibleCfgGenerator">
+        <service id="fansible_devops.generator.ansible.ansible_cfg" class="%fansible_devops.generator.ansible.ansible_cfg.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <tag name="fansible_devops.generator" />
         </service>
-        <service id="fansible_devops.generator.ansible.hosts" class="Fansible\DevopsBundle\Generator\Ansible\HostsGenerator">
+        <service id="fansible_devops.generator.ansible.hosts" class="%fansible_devops.generator.ansible.hosts.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.environments" />
             <tag name="fansible_devops.generator" />
         </service>
-        <service id="fansible_devops.generator.ansible.playbook" class="Fansible\DevopsBundle\Generator\Ansible\PlaybookGenerator">
+        <service id="fansible_devops.generator.ansible.playbook" class="%fansible_devops.generator.ansible.playbook.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.ansible_roles" />
             <tag name="fansible_devops.generator" />
         </service>
-        <service id="fansible_devops.generator.ansible.requirements" class="Fansible\DevopsBundle\Generator\Ansible\RequirementsGenerator">
+        <service id="fansible_devops.generator.ansible.requirements" class="%fansible_devops.generator.ansible.requirements.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.ansible_roles" />
@@ -54,14 +66,14 @@
 
         <!-- ansible roles -->
 
-        <service id="fansible_devops.generator.ansible.role.mysql" class="Fansible\DevopsBundle\Generator\Ansible\Roles\MysqlGenerator">
+        <service id="fansible_devops.generator.ansible.role.mysql" class="%fansible_devops.generator.ansible.role.mysql.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.database" />
             <tag name="fansible_devops.generator" />
         </service>
 
-        <service id="fansible_devops.generator.ansible.role.apache" class="Fansible\DevopsBundle\Generator\Ansible\Roles\ApacheGenerator">
+        <service id="fansible_devops.generator.ansible.role.apache" class="%fansible_devops.generator.ansible.role.apache.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.webserver" />

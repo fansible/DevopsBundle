@@ -4,32 +4,41 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="fansible_devops.config.services.class">Fansible\DevopsBundle\Config\ServicesConfig</parameter>
+        <parameter key="fansible_devops.config.webserver.class">Fansible\DevopsBundle\Config\WebServerConfig</parameter>
+        <parameter key="fansible_devops.config.database.class">Fansible\DevopsBundle\Config\DatabaseConfig</parameter>
+        <parameter key="fansible_devops.config.environments.class">Fansible\DevopsBundle\Config\EnvironmentsConfig</parameter>
+        <parameter key="fansible_devops.config.ansible_roles.class">Fansible\DevopsBundle\Config\AnsibleRolesConfig</parameter>
+        <parameter key="fansible_devops.config.vagrant.class">Fansible\DevopsBundle\Config\VagrantConfig</parameter>
+    </parameters>
+
     <services>
 
-        <service id="fansible_devops.config.services" class="Fansible\DevopsBundle\Config\ServicesConfig">
+        <service id="fansible_devops.config.services" class="%fansible_devops.config.services.class%">
             <argument>%fansible_devops.data.provisioning%</argument>
             <argument type="service" id="fansible_devops.finder.container" />
         </service>
 
-        <service id="fansible_devops.config.webserver" class="Fansible\DevopsBundle\Config\WebServerConfig">
+        <service id="fansible_devops.config.webserver" class="%fansible_devops.config.webserver.class%">
             <argument type="service" id="fansible_devops.config.services" />
             <argument>%fansible_devops.data.webserver%</argument>
         </service>
 
-        <service id="fansible_devops.config.database" class="Fansible\DevopsBundle\Config\DatabaseConfig">
+        <service id="fansible_devops.config.database" class="%fansible_devops.config.database.class%">
             <argument type="service" id="fansible_devops.config.services" />
             <argument>%fansible_devops.data.database%</argument>
         </service>
 
-        <service id="fansible_devops.config.environments" class="Fansible\DevopsBundle\Config\EnvironmentsConfig">
+        <service id="fansible_devops.config.environments" class="%fansible_devops.config.environments.class%">
             <argument>%fansible_devops.data.environments%</argument>
         </service>
 
-        <service id="fansible_devops.config.ansible_roles" class="Fansible\DevopsBundle\Config\AnsibleRolesConfig">
+        <service id="fansible_devops.config.ansible_roles" class="%fansible_devops.config.ansible_roles.class%">
             <argument>%fansible_devops.data.ansible_roles%</argument>
         </service>
 
-        <service id="fansible_devops.config.vagrant" class="Fansible\DevopsBundle\Config\VagrantConfig">
+        <service id="fansible_devops.config.vagrant" class="%fansible_devops.config.vagrant.class%">
             <argument>%fansible_devops.data.name%</argument>
             <argument>%fansible_devops.data.vagrant%</argument>
         </service>
