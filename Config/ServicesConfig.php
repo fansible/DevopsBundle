@@ -4,6 +4,10 @@ namespace Fansible\DevopsBundle\Config;
 
 class ServicesConfig
 {
+    // base
+    const PHP = 'php';
+    const COMPOSER = 'composer';
+
     // provisioning
     const ANSIBLE = 'ansible';
     const DOCKER = 'docker';
@@ -25,6 +29,7 @@ class ServicesConfig
      * @var array
      */
     private $allServices = [
+        self::PHP, self::COMPOSER,
         self::ANSIBLE, self::DOCKER,
         self::MYSQL, self::POSTGRESQL,
         self::APACHE, self::NGINX,
@@ -42,7 +47,10 @@ class ServicesConfig
      */
     public function __construct($provisioning, $finderContainer)
     {
-        $this->services = [];
+        $this->services = [
+            self::PHP,
+            self::COMPOSER,
+        ];
         $this->addService($provisioning);
         if (null !== $services = $finderContainer->getServices()) {
             foreach ($services as $service) {

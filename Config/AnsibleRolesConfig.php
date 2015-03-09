@@ -5,6 +5,8 @@ namespace Fansible\DevopsBundle\Config;
 class AnsibleRolesConfig
 {
     private $rolesSupported = [
+        ServicesConfig::PHP,
+        ServicesConfig::COMPOSER,
         ServicesConfig::MYSQL,
         ServicesConfig::POSTGRESQL,
         ServicesConfig::APACHE,
@@ -16,6 +18,9 @@ class AnsibleRolesConfig
      * @var array
      */
     private $roles = [
+        // base
+        ServicesConfig::PHP => ['name' => 'kosssi.php', 'version' => 'v42'],
+        ServicesConfig::COMPOSER => ['name' => 'kosssi.composer', 'version' => 'v42'],
         // database
         ServicesConfig::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
         ServicesConfig::POSTGRESQL => ['name' => 'FAKE.postgresql', 'version' => 'v42'],
