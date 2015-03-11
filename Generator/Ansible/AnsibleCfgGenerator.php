@@ -35,7 +35,7 @@ class AnsibleCfgGenerator implements GeneratorInterface
         if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)) {
             $this->twigHelper->renderProvisioningFile(
                 'ansible.cfg',
-                'Ansible/ansible.cfg.twig'
+                'Ansible:ansible.cfg.twig'
             );
         }
     }

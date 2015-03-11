@@ -56,7 +56,7 @@ class PlaybookGenerator implements GeneratorInterface
         if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)) {
             $this->twigHelper->renderProvisioningFile(
                 'playbook.yml',
-                'Ansible/playbook.yml.twig',
+                'Ansible:playbook.yml.twig',
                 [
                     'project_name' => $this->projectName,
                     'hosts' => 'all',

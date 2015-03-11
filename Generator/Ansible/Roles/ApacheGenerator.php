@@ -44,7 +44,7 @@ class ApacheGenerator implements GeneratorInterface
         ) {
             $this->twigHelper->renderProvisioningFile(
                 'vars/apache.yml',
-                'Ansible/Roles/apache.yml.twig',
+                'Ansible/Roles:apache.yml.twig',
                 [
                     'port' => $this->webServerConfig->getPort(),
                 ]

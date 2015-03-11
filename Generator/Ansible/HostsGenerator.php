@@ -44,7 +44,7 @@ class HostsGenerator implements GeneratorInterface
             foreach ($this->environmentsConfig->getEnvironments() as $environment) {
                 $this->twigHelper->renderProvisioningFile(
                     'inventory/' . $environment->getName(),
-                    'Ansible/hosts.twig',
+                    'Ansible:hosts.txt.twig',
                     [
                         'environment' => $environment,
                     ]

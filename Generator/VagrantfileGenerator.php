@@ -30,7 +30,7 @@ class VagrantfileGenerator implements GeneratorInterface
     {
         $this->twigHelper->render(
             'Vagrantfile',
-            'Vagrant/Vagrantfile.twig',
+            'Vagrant:Vagrantfile.txt.twig',
             [
                 'config' => $this->vagrantConfig,
             ]

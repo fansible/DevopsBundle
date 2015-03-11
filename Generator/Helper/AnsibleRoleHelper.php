@@ -49,7 +49,7 @@ abstract class AnsibleRoleHelper implements GeneratorInterface
         ) {
             $this->twigHelper->renderProvisioningFile(
                 'vars/' . $this->getService() . '.yml',
-                'Ansible/Roles/' . $this->getService() . '.yml.twig',
+                'Ansible/Roles:' . $this->getService() . '.yml.twig',
                 $this->getParameters()
             );
         }

@@ -44,7 +44,7 @@ class MysqlGenerator implements GeneratorInterface
         ) {
             $this->twigHelper->renderProvisioningFile(
                 'vars/mysql.yml',
-                'Ansible/Roles/mysql.yml.twig',
+                'Ansible/Roles:mysql.yml.twig',
                 [
                     'database' => $this->databaseConfig,
                 ]

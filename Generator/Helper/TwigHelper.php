@@ -38,7 +38,7 @@ class TwigHelper
      */
     private function getTwigPath($path)
     {
-        return dirname(dirname(__DIR__)) . '/Resources/views/' . $path;
+        return 'FansibleDevopsBundle:' . $path;
     }
 
     /**
