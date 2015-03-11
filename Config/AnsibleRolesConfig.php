@@ -19,6 +19,7 @@ class AnsibleRolesConfig
      */
     private $roles = [
         // base
+        ServicesConfig::APT => ['name' => 'kosssi.apt', 'version' => 'v2.0.0'],
         ServicesConfig::PHP => ['name' => 'kosssi.php', 'version' => 'v1.1.0'],
         ServicesConfig::COMPOSER => ['name' => 'kosssi.composer', 'version' => 'v1.2.0'],
         // database
