@@ -40,7 +40,7 @@ class RequirementsGenerator implements GeneratorInterface
     public function generate()
     {
         if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)) {
-            $this->twigHelper->renderProvisioningFile(
+            $this->twigHelper->render(
                 'requirements.txt',
                 'Ansible:requirements.txt.twig',
                 [
