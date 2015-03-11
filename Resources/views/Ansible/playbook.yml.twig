@@ -3,6 +3,9 @@
 - name: Provision {{ project_name }}
   hosts: {{ hosts }}
   sudo: {{ sudo }}
+  vars:
+    timezone: {{ timezone }}
+    project_name: {{ project_name }}
   vars_files:
 {% if services is not empty %}{% for service in services %}{% if roles[service] is defined %}
     - vars/{{ service }}.yml
@@ -12,9 +15,9 @@
     - vars/{{ vars_file }}.yml
 {% endfor %}
 {% endif %}
-roles:
+  roles:
 {% for service in services %}{% if roles[service] is defined %}
-  - { role: {{ roles[service].name }}, tags: {{ service }} }
+    - { role: {{ roles[service].name }}, tags: {{ service }} }
 {% endif %}{% endfor %}
 {% if includes is defined %}
 

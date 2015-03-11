@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('name')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('timezone')->defaultValue('Europe/Paris')->end()
                 ->scalarNode('provisioning')
                     ->defaultValue(ServicesConfig::ANSIBLE)
                     ->validate()
@@ -63,7 +64,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('exec')->defaultValue('100')->end()
                         ->scalarNode('src')->defaultValue('.')->end()
                         ->scalarNode('dest')->defaultNull()->end()
-                        ->scalarNode('hostfile')->defaultValue('devops/privisioning/inventory/vagrant')->end()
+                        ->scalarNode('hostfile')->defaultValue('devops/provisioning/inventory/vagrant')->end()
                     ->end()
                 ->end()
                 ->arrayNode('environments')

@@ -22,9 +22,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.sudo = true
-    ansible.playbook = "playbook.yml"
+    ansible.playbook = "devops/provisioning/playbook.yml"
     ansible.limit = "vagrant"
-    ansible.inventory_path = "{{ config.hostfile }}/vagrant"
+    ansible.inventory_path = "{{ config.hostfile }}"
     ansible.verbose = "vvvv"
     #ansible.tags = "config"
     #ansible.raw_arguments  = "--vault-password-file=password.txt"

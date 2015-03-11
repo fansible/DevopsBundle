@@ -23,15 +23,29 @@ class PlaybookGenerator implements GeneratorInterface
     private $ansibleRolesConfig;
 
     /**
+     * @var string
+     */
+    private $projectName;
+
+    /**
+     * @var string
+     */
+    private $timezone;
+
+    /**
      * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper
      * @param ServicesConfig                                     $servicesConfig
      * @param \Fansible\DevopsBundle\Config\AnsibleRolesConfig   $ansibleRolesConfig
+     * @param string                                             $projectName
+     * @param string                                             $timezone
      */
-    public function __construct($twigHelper, $servicesConfig, $ansibleRolesConfig)
+    public function __construct($twigHelper, $servicesConfig, $ansibleRolesConfig, $projectName, $timezone)
     {
         $this->twigHelper = $twigHelper;
         $this->servicesConfig = $servicesConfig;
         $this->ansibleRolesConfig = $ansibleRolesConfig;
+        $this->projectName = $projectName;
+        $this->timezone = $timezone;
     }
 
     /**
@@ -44,11 +58,12 @@ class PlaybookGenerator implements GeneratorInterface
                 'playbook.yml',
                 'Ansible/playbook.yml.twig',
                 [
-                    'project_name' => 'devops',
+                    'project_name' => $this->projectName,
                     'hosts' => 'all',
                     'sudo' => 'yes',
                     'roles' => $this->ansibleRolesConfig->getRoles(),
                     'services' => $this->servicesConfig->getServices(),
+                    'timezone' => $this->timezone,
                 ]
             );
         }

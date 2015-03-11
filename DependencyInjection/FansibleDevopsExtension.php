@@ -24,6 +24,7 @@ class FansibleDevopsExtension extends Extension implements PrependExtensionInter
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('fansible_devops.data.name', $config['name']);
+        $container->setParameter('fansible_devops.data.timezone', $config['timezone']);
         $container->setParameter('fansible_devops.data.provisioning', $config['provisioning']);
         $container->setParameter('fansible_devops.data.provisioning_path', $config['provisioning_path']);
         $container->setParameter('fansible_devops.data.database', $config['database']);

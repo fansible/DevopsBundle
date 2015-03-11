@@ -57,6 +57,8 @@
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.ansible_roles" />
+            <argument>%fansible_devops.data.name%</argument>
+            <argument>%fansible_devops.data.timezone%</argument>
             <tag name="fansible_devops.generator" />
         </service>
         <service id="fansible_devops.generator.ansible.requirements" class="%fansible_devops.generator.ansible.requirements.class%">
