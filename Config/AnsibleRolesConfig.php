@@ -28,7 +28,7 @@ class AnsibleRolesConfig
         ServicesConfig::APACHE => ['name' => 'kosssi.apache', 'version' => 'v1.0.3'],
         ServicesConfig::NGINX => ['name' => 'FAKE.nginx', 'version' => 'v42'],
 
-        ServicesConfig::NODE => ['name' => 'FAKE.node', 'version' => 'v42'],
+        ServicesConfig::NODE => ['name' => 'Stouts.nodejs', 'version' => '1.1.2'],
     ];
 
     /**
