@@ -19,8 +19,8 @@ class AnsibleRolesConfig
      */
     private $roles = [
         // base
-        ServicesConfig::PHP => ['name' => 'kosssi.php', 'version' => 'v42'],
-        ServicesConfig::COMPOSER => ['name' => 'kosssi.composer', 'version' => 'v42'],
+        ServicesConfig::PHP => ['name' => 'kosssi.php', 'version' => 'v1.1.0'],
+        ServicesConfig::COMPOSER => ['name' => 'kosssi.composer', 'version' => 'v1.2.0'],
         // database
         ServicesConfig::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
         ServicesConfig::POSTGRESQL => ['name' => 'FAKE.postgresql', 'version' => 'v42'],
