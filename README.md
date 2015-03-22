@@ -15,27 +15,41 @@ You will need to install if you haven't done yet:
 1) Add "fansible/devops-bundle": "dev-master" in your composer.json and run: `composer update` to install it.
 
 2) Enable the bundle in the `app/AppKernel.php` file.
+
 Add `$bundles[] = new \Fansible\DevopsBundle\FansibleDevopsBundle();`
 
 3) Add the following in your configuration in
 
     fansible_devops:
+      #Name of your project
       name: fansible-devops
-      ansible_roles:
-        apache:
-          name: FAKE.apache
-          version: v24
       environments:
         vagrant:
-          ip: 8.0.0.8
+          ip: 10.0.0.10
           host: fansible-devops.dev
+          #Those vars will be used to generate the VagrantFile
+          #box: ubuntu/trusty64
+          #memory: 1024
+          #cpus: 1
+          #exec: 100
+          #src: .
+          #dest: /var/www/fansible-devops/current
         prod:
           ip: x.x.x.x
           host: fansible-devops.prod
+      #Specific role you want to use
+      ansible_roles:
+    #      apache:
+    #        name: THEROLEYOUWANT #you can found many roles on ansible galaxy
+    #        version: v24
 
-4) Now you can use our command to generate all the files you need to your provisioning. `app/console devops:provisioning:generate`
+4) Add your host in your hostfile: `sudo /bin/bash -c "echo '10.0.0.10  fansible-devops.dev' >> /etc/hosts"`
 
-5) To be able to correctly provision your server, ansible needs some role that are describe in the requirements.txt file.
-You need to download them by running `ansible-galaxy install -r requirements.txt`.
+5) Now you can use our command to generate all the files you need to your provisioning.
+`app/console devops:provisioning:generate`
 
-6)Now you can run `vagrant up` to start your vagrant. It is lunched using the Vagrantfile that we have just generated.
+6) To be able to correctly provision your server, ansible needs some role that are describe in the requirements.txt file.
+You need to download them by running
+`ansible-galaxy install -r requirements.txt`.
+
+7) Now you can run `vagrant up` to start your vagrant. It is lunched using the Vagrantfile that we have just generated.

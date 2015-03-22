@@ -2,7 +2,7 @@
 
 <phpunit colors="true" bootstrap="./vendor/autoload.php">
     <testsuites>
-        <testsuite name="AsseticBundle Test Suite">
+        <testsuite name="FansibleDevopsBundle Test Suite">
             <directory>./Tests/</directory>
         </testsuite>
     </testsuites>

@@ -29,7 +29,7 @@ class FansibleDevopsExtension extends Extension implements PrependExtensionInter
         $container->setParameter('fansible_devops.data.provisioning_path', $config['provisioning_path']);
         $container->setParameter('fansible_devops.data.database', $config['database']);
         $container->setParameter('fansible_devops.data.webserver', $config['webserver']);
-        $container->setParameter('fansible_devops.data.vagrant', $config['vagrant']);
+        $container->setParameter('fansible_devops.data.vagrant', $config['environments']['vagrant']);
         $container->setParameter('fansible_devops.data.environments', $config['environments']);
         $container->setParameter('fansible_devops.data.ansible_roles', $config['ansible_roles']);
 
