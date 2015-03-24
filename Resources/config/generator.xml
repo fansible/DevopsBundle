@@ -14,6 +14,7 @@
         <parameter key="fansible_devops.generator.ansible.requirements.class">Fansible\DevopsBundle\Generator\Ansible\RequirementsGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.mysql.class">Fansible\DevopsBundle\Generator\Ansible\Roles\MysqlGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.apache.class">Fansible\DevopsBundle\Generator\Ansible\Roles\ApacheGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.role.nginx.class">Fansible\DevopsBundle\Generator\Ansible\Roles\NginxGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.php.class">Fansible\DevopsBundle\Generator\Ansible\Roles\PhpGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.composer.class">Fansible\DevopsBundle\Generator\Ansible\Roles\ComposerGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.node.class">Fansible\DevopsBundle\Generator\Ansible\Roles\NodeGenerator</parameter>
@@ -80,6 +81,13 @@
         </service>
 
         <service id="fansible_devops.generator.ansible.role.apache" class="%fansible_devops.generator.ansible.role.apache.class%">
+            <argument type="service" id="fansible_devops.generator.helper.twig" />
+            <argument type="service" id="fansible_devops.config.services" />
+            <argument type="service" id="fansible_devops.config.webserver" />
+            <tag name="fansible_devops.generator" />
+        </service>
+
+        <service id="fansible_devops.generator.ansible.role.nginx" class="%fansible_devops.generator.ansible.role.nginx.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.webserver" />

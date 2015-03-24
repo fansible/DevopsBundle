@@ -3,6 +3,7 @@
 namespace Fansible\DevopsBundle\Generator\Ansible;
 
 use Fansible\DevopsBundle\Config\ServicesConfig;
+use Fansible\DevopsBundle\Config\VagrantConfig;
 use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
 
 class HostsGenerator implements GeneratorInterface
@@ -47,6 +48,13 @@ class HostsGenerator implements GeneratorInterface
                     'Ansible:hosts.txt.twig',
                     [
                         'environment' => $environment,
+                    ]
+                );
+                $this->twigHelper->renderProvisioningFile(
+                    'inventory/group_vars/' . $environment->getName(),
+                    'Ansible:group_vars.txt.twig',
+                    [
+                        'dev_env' => $environment->getName() == VagrantConfig::VAGRANT_NAME ? "true" : "false",
                     ]
                 );
             }

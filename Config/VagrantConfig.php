@@ -4,6 +4,8 @@ namespace Fansible\DevopsBundle\Config;
 
 class VagrantConfig
 {
+    const VAGRANT_NAME = "vagrant";
+
     /** @var string */
     private $projectName;
     /** @var string */

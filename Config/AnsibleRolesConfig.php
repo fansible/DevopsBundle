@@ -27,7 +27,7 @@ class AnsibleRolesConfig
         ServicesConfig::POSTGRESQL => ['name' => 'FAKE.postgresql', 'version' => 'v42'],
         // webserver
         ServicesConfig::APACHE => ['name' => 'kosssi.apache', 'version' => 'v1.0.3'],
-        ServicesConfig::NGINX => ['name' => 'FAKE.nginx', 'version' => 'v42'],
+        ServicesConfig::NGINX => ['name' => 'nginx-symfony', 'version' => 'v42'],
 
         ServicesConfig::NODE => ['name' => 'Stouts.nodejs', 'version' => '1.1.2'],
     ];
