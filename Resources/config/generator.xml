@@ -18,6 +18,7 @@
         <parameter key="fansible_devops.generator.ansible.role.php.class">Fansible\DevopsBundle\Generator\Ansible\Roles\PhpGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.composer.class">Fansible\DevopsBundle\Generator\Ansible\Roles\ComposerGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.node.class">Fansible\DevopsBundle\Generator\Ansible\Roles\NodeGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.role.xdebug.class">Fansible\DevopsBundle\Generator\Ansible\Roles\XdebugGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.apt.class">Fansible\DevopsBundle\Generator\Ansible\Roles\AptGenerator</parameter>
     </parameters>
 
@@ -107,6 +108,12 @@
         </service>
 
         <service id="fansible_devops.generator.ansible.role.node" class="%fansible_devops.generator.ansible.role.node.class%">
+            <argument type="service" id="fansible_devops.generator.helper.twig" />
+            <argument type="service" id="fansible_devops.config.services" />
+            <tag name="fansible_devops.generator" />
+        </service>
+
+        <service id="fansible_devops.generator.ansible.role.xdebug" class="%fansible_devops.generator.ansible.role.xdebug.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <tag name="fansible_devops.generator" />

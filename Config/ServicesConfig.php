@@ -25,6 +25,7 @@ class ServicesConfig
     const NODE = 'node';
     const REDIS = 'redis';
     const RABBITMQ = 'rabbitmq';
+    const XDEBUG = 'xdebug';
 
     /**
      * @var array
@@ -35,6 +36,7 @@ class ServicesConfig
         self::MYSQL, self::POSTGRESQL,
         self::APACHE, self::NGINX,
         self::NODE, self::REDIS, self::RABBITMQ,
+        self::XDEBUG
     ];
 
     /**

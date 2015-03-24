@@ -25,3 +25,10 @@
   - include : {{ include.include }}.yml
 {% endfor %}
 {% endif %}
+
+- name: Vagrant provisioning
+  hosts: vagrant
+  sudo: yes
+  gather_facts: true
+  roles:
+   - MaximeThoonsen.php5-xdebug

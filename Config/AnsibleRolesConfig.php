@@ -12,6 +12,7 @@ class AnsibleRolesConfig
         ServicesConfig::APACHE,
         ServicesConfig::NGINX,
         ServicesConfig::NODE,
+        ServicesConfig::XDEBUG,
     ];
 
     /**
@@ -27,9 +28,10 @@ class AnsibleRolesConfig
         ServicesConfig::POSTGRESQL => ['name' => 'FAKE.postgresql', 'version' => 'v42'],
         // webserver
         ServicesConfig::APACHE => ['name' => 'kosssi.apache', 'version' => 'v1.0.3'],
-        ServicesConfig::NGINX => ['name' => 'nginx-symfony', 'version' => 'v42'],
+        ServicesConfig::NGINX => ['name' => 'nginx-symfony', 'version' => 'none'],
 
         ServicesConfig::NODE => ['name' => 'Stouts.nodejs', 'version' => '1.1.2'],
+        ServicesConfig::XDEBUG => ['name' => 'MaximeThoonsen.php5-xdebug', 'version' => 'none'],
     ];
 
     /**
