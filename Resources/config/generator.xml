@@ -13,6 +13,7 @@
         <parameter key="fansible_devops.generator.ansible.playbook.class">Fansible\DevopsBundle\Generator\Ansible\PlaybookGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.requirements.class">Fansible\DevopsBundle\Generator\Ansible\RequirementsGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.mysql.class">Fansible\DevopsBundle\Generator\Ansible\Roles\MysqlGenerator</parameter>
+        <parameter key="fansible_devops.generator.ansible.role.postgresql.class">Fansible\DevopsBundle\Generator\Ansible\Roles\PostgresqlGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.apache.class">Fansible\DevopsBundle\Generator\Ansible\Roles\ApacheGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.nginx.class">Fansible\DevopsBundle\Generator\Ansible\Roles\NginxGenerator</parameter>
         <parameter key="fansible_devops.generator.ansible.role.php.class">Fansible\DevopsBundle\Generator\Ansible\Roles\PhpGenerator</parameter>
@@ -75,6 +76,13 @@
         <!-- ansible roles -->
 
         <service id="fansible_devops.generator.ansible.role.mysql" class="%fansible_devops.generator.ansible.role.mysql.class%">
+            <argument type="service" id="fansible_devops.generator.helper.twig" />
+            <argument type="service" id="fansible_devops.config.services" />
+            <argument type="service" id="fansible_devops.config.database" />
+            <tag name="fansible_devops.generator" />
+        </service>
+
+        <service id="fansible_devops.generator.ansible.role.postgresql" class="%fansible_devops.generator.ansible.role.postgresql.class%">
             <argument type="service" id="fansible_devops.generator.helper.twig" />
             <argument type="service" id="fansible_devops.config.services" />
             <argument type="service" id="fansible_devops.config.database" />

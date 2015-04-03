@@ -14,4 +14,14 @@ class PhpGenerator extends AnsibleRoleHelper
     {
         return ServicesConfig::PHP;
     }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return [
+            'services' => $this->servicesConfig
+        ];
+    }
 }

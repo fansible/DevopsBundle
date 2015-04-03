@@ -9,12 +9,12 @@ abstract class AnsibleRoleHelper implements GeneratorInterface
     /**
      * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
      */
-    private $twigHelper;
+    protected $twigHelper;
 
     /**
      * @var ServicesConfig
      */
-    private $servicesConfig;
+    protected $servicesConfig;
 
     /**
      * @param \Fansible\DevopsBundle\Generator\Helper\TwigHelper $twigHelper

@@ -25,7 +25,7 @@ class AnsibleRolesConfig
         ServicesConfig::COMPOSER => ['name' => 'kosssi.composer', 'version' => 'v1.2.0'],
         // database
         ServicesConfig::MYSQL => ['name' => 'ANXS.mysql', 'version' => 'v1.0.3'],
-        ServicesConfig::POSTGRESQL => ['name' => 'FAKE.postgresql', 'version' => 'v42'],
+        ServicesConfig::POSTGRESQL => ['name' => 'ANXS.postgresql', 'version' => 'v1.1.0'],
         // webserver
         ServicesConfig::APACHE => ['name' => 'kosssi.apache', 'version' => 'v1.0.3'],
         ServicesConfig::NGINX => ['name' => 'nginx-symfony', 'version' => 'none'],
