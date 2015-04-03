@@ -3,20 +3,10 @@
 namespace Fansible\DevopsBundle\Generator\Ansible\Roles;
 
 use Fansible\DevopsBundle\Config\ServicesConfig;
-use Fansible\DevopsBundle\Generator\Helper\GeneratorInterface;
+use Fansible\DevopsBundle\Generator\Helper\AnsibleRoleHelper;
 
-class MysqlGenerator implements GeneratorInterface
+class MysqlGenerator extends AnsibleRoleHelper
 {
-    /**
-     * @var \Fansible\DevopsBundle\Generator\Helper\TwigHelper
-     */
-    private $twigHelper;
-
-    /**
-     * @var ServicesConfig
-     */
-    private $servicesConfig;
-
     /**
      * @var \Fansible\DevopsBundle\Config\DatabaseConfig
      */
@@ -29,26 +19,25 @@ class MysqlGenerator implements GeneratorInterface
      */
     public function __construct($twigHelper, $servicesConfig, $databaseConfig)
     {
-        $this->twigHelper = $twigHelper;
-        $this->servicesConfig = $servicesConfig;
+        parent::__construct($twigHelper, $servicesConfig);
         $this->databaseConfig = $databaseConfig;
     }
 
     /**
      * @inheritdoc
      */
-    public function generate()
+    public function getService()
     {
-        if ($this->servicesConfig->isPresent(ServicesConfig::ANSIBLE)
-            && $this->servicesConfig->isPresent(ServicesConfig::MYSQL)
-        ) {
-            $this->twigHelper->renderProvisioningFile(
-                'vars/mysql.yml',
-                'Ansible/Roles:mysql.yml.twig',
-                [
-                    'database' => $this->databaseConfig,
-                ]
-            );
-        }
+        return ServicesConfig::MYSQL;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getParameters()
+    {
+        return [
+            'database' => $this->databaseConfig,
+        ];
     }
 }
