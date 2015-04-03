@@ -14,7 +14,7 @@ class ProvisioningGeneratorCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('devops:provisioning:generate')
+            ->setName('generate:provisioning')
             ->setDescription('Generate Symfony provisioning')
         ;
     }
