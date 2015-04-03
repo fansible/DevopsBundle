@@ -5,7 +5,12 @@ php_install:
   - php5-intl
   - php5-curl
   - php5-gd
+{% if services.isPresent(constant('Fansible\\DevopsBundle\\Config\\ServicesConfig::MYSQL')) %}
   - php5-mysql
+{% endif %}
+{% if services.isPresent(constant('Fansible\\DevopsBundle\\Config\\ServicesConfig::POSTGRESQL')) %}
+  - php5-pgsql
+{% endif %}
   - php5-fpm
 
 php_configure:
