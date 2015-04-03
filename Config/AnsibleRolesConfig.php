@@ -31,7 +31,7 @@ class AnsibleRolesConfig
         ServicesConfig::NGINX => ['name' => 'nginx-symfony', 'version' => 'none'],
 
         ServicesConfig::NODE => ['name' => 'Stouts.nodejs', 'version' => '1.1.2'],
-        ServicesConfig::XDEBUG => ['name' => 'MaximeThoonsen.php5-xdebug', 'version' => 'none'],
+        ServicesConfig::XDEBUG => ['name' => 'MaximeThoonsen.php5-xdebug', 'version' => 'v1.0.5'],
     ];
 
     /**
