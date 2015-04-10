@@ -18,7 +18,7 @@ You will need to install if you haven't done yet:
 
 Add `$bundles[] = new \Fansible\DevopsBundle\FansibleDevopsBundle();`
 
-3) Add the following in your configuration in
+3) Add the following in your configuration in `app/config/config.yml`
 
     fansible_devops:
       #Name of your project
@@ -46,7 +46,7 @@ Add `$bundles[] = new \Fansible\DevopsBundle\FansibleDevopsBundle();`
 4) Add your host in your hostfile: `sudo /bin/bash -c "echo '10.0.0.10  fansible-devops.dev' >> /etc/hosts"`
 
 5) Now you can use our command to generate all the files you need to your provisioning.
-`app/console devops:provisioning:generate`
+`app/console generate:provisioning`
 
 6) To be able to correctly provision your server, ansible needs some role that are describe in the requirements.txt file.
 You need to download them by running
