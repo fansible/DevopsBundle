@@ -12,7 +12,9 @@ You will need to install if you haven't done yet:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 * nfs `sudo apt-get install nfs-kernel-server`
 
-1) Add "fansible/devops-bundle": "dev-master" in your composer.json and run: `composer update` to install it.
+1) Install the bundle
+
+    composer require fansible/devops-bundle *@dev --dev
 
 2) Enable the bundle in the `app/AppKernel.php` file.
 
