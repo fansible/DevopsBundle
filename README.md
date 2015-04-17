@@ -16,11 +16,16 @@ You will need to install if you haven't done yet:
 
     composer require fansible/devops-bundle *@dev --dev
 
-2) Enable the bundle in the `app/AppKernel.php` file.
+2) Enable the bundle in the `app/AppKernel.php` file, for development environment only.
 
-Add `$bundles[] = new \Fansible\DevopsBundle\FansibleDevopsBundle();`
+```
+if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+    /* After other dev dependencies... */
+    $bundles[] = new \Fansible\DevopsBundle\FansibleDevopsBundle();
+}
+```
 
-3) Add the following in your configuration in `app/config/config.yml`
+3) Add the following in your configuration in `app/config/config_dev.yml`
 
     fansible_devops:
       #Name of your project
