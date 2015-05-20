@@ -11,7 +11,6 @@ php_install:
 {% if services.isPresent(constant('Fansible\\DevopsBundle\\Config\\ServicesConfig::POSTGRESQL')) %}
   - php5-pgsql
 {% endif %}
-  - php5-fpm
 
 php_configure:
   - file: /etc/php5/cli/php.ini
