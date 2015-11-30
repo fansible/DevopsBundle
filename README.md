@@ -1,3 +1,6 @@
+# /!\ Deprecated /!\
+See https://github.com/fansible/tywin for the newer version.
+
 # FansibleDevopsBundle
 
 This will help you to generate a Ansible provisioning to run your Symfony apps.
